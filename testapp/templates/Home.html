@@ -1,0 +1,25 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block headertitle %}Cash App - Home{% endblock %}
+
+{% block content %}
+    <br>
+    <h2 align="center" >Your {{ wallet.type|capfirst }} Wallet</h2>
+    {% if wallet %}
+    <br>
+    <br>
+        <h4 align="center">Your balance is: {{ wallet.amount }} EGP</h4>
+        <br>
+        <br>
+        <!-- Buttons for operations -->
+        <div class="text-center">
+            <a href="{% url 'deposit' wallet.id %}" class="btn btn-success mx-2">Deposit</a>
+            <a href="{% url 'withdraw' wallet.id %}" class="btn btn-warning mx-2">Withdraw</a>
+            <a href="{% url 'transfer' wallet.id %}" class="btn btn-primary mx-2">Transfer</a>
+        </div>
+    {% else %}
+        <p>You do not have a current-type wallet.</p>
+    {% endif %}
+
+{% endblock %}

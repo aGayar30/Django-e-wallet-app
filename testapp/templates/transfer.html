@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer</title>
+</head>
+<body>
+    <h2>Transfer to Another Wallet</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="receiver_phone">Receiver Phone Number:</label>
+        <input type="text" name="receiver_phone" required>
+        <label for="amount">Amount to transfer:</label>
+        <input type="number" name="amount" required>
+        <button type="submit">Transfer</button>
+    </form>
+</body>
+</html>
