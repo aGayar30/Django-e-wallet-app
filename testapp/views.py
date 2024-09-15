@@ -224,3 +224,23 @@ def transfer(request, sender_wallet_id):
 
 
 
+def transaction_history(request, wallet_id):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        
+        # Fetch the wallet and ensure it belongs to the logged-in customer
+        try:
+            wallet = Wallet.objects.get(id=wallet_id, customer=customer)
+        except Wallet.DoesNotExist:
+            messages.error(request, 'Wallet does not exist or does not belong to you.')
+            return redirect('home')
+        
+        # Fetch the transactions for the selected wallet
+        transactions_list = transactions.objects.filter(wallet=wallet).order_by('-date')  # Order by most recent
+        
+        return render(request, 'transactionhistory.html', {
+            'wallet': wallet,
+            'transactions': transactions_list
+        })
+    else:
+        return redirect('landing')
